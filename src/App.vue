@@ -1,5 +1,19 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const message = ref('')
+
+onMounted(() => {
+  axios.get('http://localhost:8081/common/test')
+    .then(res => {
+      message.value = res.data.message
+    })
+    .catch(err => {
+      console.error('API 호출 실패:', err)
+      message.value = 'API 호출 에러'
+    })
+})
 </script>
 
 <template>
@@ -10,8 +24,12 @@ import HelloWorld from './components/HelloWorld.vue'
     <a href="https://vuejs.org/" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
+
+    <!-- 여기가 추가 부분입니다 -->
+    <p>서버 응답: {{ message }}</p>
+
+    <HelloWorld msg="Vite + Vue" />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
