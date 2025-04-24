@@ -31,7 +31,7 @@ export default {
         this.message = res.data.message
       })
       .catch(err => {
-        console.error('API 호출 실패: ', err)
+        console.error('API 호출 실패:   ', err)
         this.message = 'API 호출 에러'
       })
   }
